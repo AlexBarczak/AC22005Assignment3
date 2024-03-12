@@ -7,6 +7,9 @@ namespace AC22005Assignment3
         public delegate void CloseDelegate();
 
         public LinkedList<ATMForm> ATMList = new LinkedList<ATMForm>();
+
+        private Account[] ac = new Account[3];
+
         private Queue<string> OutputWindowBuffer = new Queue<string>();
         const int OutputWindowCharWidth = 42;
         const int OutputWindowCharHeight = 14;
@@ -40,6 +43,10 @@ namespace AC22005Assignment3
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Main_FormClosing);
+
+            ac[0] = new Account(300, 1111, 111111);
+            ac[1] = new Account(750, 2222, 222222);
+            ac[2] = new Account(3000, 3333, 333333);
         }
 
         private void btn_CreateATM_Click(object sender, EventArgs e)

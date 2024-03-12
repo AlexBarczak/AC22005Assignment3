@@ -19,10 +19,19 @@ namespace AC22005Assignment3
         public ATMForm(Main mainForm)
         {
             InitializeComponent();
+
+
+            
             this.mainForm = mainForm;
             mainForm.ATMList.AddLast(this);
             mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), Thread.CurrentThread.ManagedThreadId.ToString());
+            
             Application.Run(this);
+        }
+
+        private void NumpadClicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
