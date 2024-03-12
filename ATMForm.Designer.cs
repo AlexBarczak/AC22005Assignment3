@@ -49,6 +49,7 @@
             this.btn_right3 = new System.Windows.Forms.Button();
             this.btn_right2 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.displayBox = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -279,11 +280,23 @@
             this.panel2.Size = new System.Drawing.Size(195, 182);
             this.panel2.TabIndex = 21;
             // 
+            // displayBox
+            // 
+            this.displayBox.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.displayBox.Location = new System.Drawing.Point(134, 40);
+            this.displayBox.Multiline = true;
+            this.displayBox.Name = "displayBox";
+            this.displayBox.ReadOnly = true;
+            this.displayBox.Size = new System.Drawing.Size(318, 220);
+            this.displayBox.TabIndex = 23;
+            this.displayBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // ATMForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.displayBox);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btn_right2);
             this.Controls.Add(this.btn_right3);
@@ -297,6 +310,7 @@
             this.Text = "ATM";
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -323,5 +337,6 @@
         private Button btn_right3;
         private Button btn_right2;
         private Panel panel2;
+        private TextBox displayBox;
     }
 }
