@@ -13,6 +13,8 @@ namespace AC22005Assignment3
     public partial class ATMForm : Form
     {
 
+        Button[] denominationButtons = new Button[8];
+
         enum State {
             EnteringAccountNumber,
             EnteringPin,
@@ -20,8 +22,10 @@ namespace AC22005Assignment3
             WithdrawingCash,
             CheckingBalance
         }
+        
+        string[] withdrawAmount = { "5", "10", "20", "50", "100", "200", "500", "1000"};
 
-        private Account currentAccount;
+        private Account? currentAccount;
 
         State state = State.EnteringAccountNumber;
         string currentUserInput = "";
@@ -34,9 +38,18 @@ namespace AC22005Assignment3
         {
             InitializeComponent();
 
+            denominationButtons[0] = btn_left1;
+            denominationButtons[1] = btn_left2;
+            denominationButtons[2] = btn_left3;
+            denominationButtons[3] = btn_left4;
+            denominationButtons[4] = btn_right1;
+            denominationButtons[5] = btn_right2;
+            denominationButtons[6] = btn_right3;
+            denominationButtons[7] = btn_right4;
+
             this.mainForm = mainForm;
             mainForm.ATMList.AddLast(this);
-            mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), Thread.CurrentThread.ManagedThreadId.ToString());
+            mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), Environment.CurrentManagedThreadId.ToString());
             UpdateDisplay();
 
             Application.Run(this);
@@ -46,23 +59,39 @@ namespace AC22005Assignment3
         {
             string[] lines = new string[8];
 
+            foreach (Button button in denominationButtons)
+            {
+                button.Text = "";
+            }
+
             switch (state)
             {
                 case State.EnteringAccountNumber:
-                    lines[3] = "Enter Your account number:";
-                    lines[4] = currentUserInput;
+                    lines[2] = "Enter Your account number:";
+                    lines[3] = currentUserInput;
                     break;
                 case State.EnteringPin:
-                    lines[3] = "Enter Your pin number:";
-                    lines[4] = currentUserInput;
+                    lines[2] = "Enter Your pin number:";
+                    lines[3] = currentUserInput;
                     break;
                 case State.LoggedIn:
-                    lines[3] = "welcome, user";
-                    lines[4] = "select an action";
+                    lines[2] = "welcome, user";
+                    lines[3] = "select an action:";
+                    lines[4] = "B to check balance";
+                    lines[5] = "W to withdraw money";
+                    denominationButtons[0].Text = "B";
+                    denominationButtons[1].Text = "W";
                     break;
                 case State.WithdrawingCash:
+                    for(int i = 0; i < denominationButtons.Length; i++){
+                        denominationButtons[i].Text = withdrawAmount[i];
+                    }
+                    lines[2] = "please select the amount";
+                    lines[3] = "to withdraw";
                     break;
                 case State.CheckingBalance:
+                    lines[2] = "Your current balance is: ";
+                    lines[3] = currentAccount.getBalance().ToString();
                     break;
             }
 
@@ -119,13 +148,17 @@ namespace AC22005Assignment3
                     break;
             }
 
+            currentUserInput = "";
             UpdateDisplay();
             return;
         }
 
         private void btn_Enter_Click(object sender, EventArgs e)
         {
-
+            if (currentUserInput == "")
+            {
+                return;
+            }
             string errorMessage = "";
 
             switch (state)
@@ -160,6 +193,42 @@ namespace AC22005Assignment3
             currentUserInput = "";
             UpdateDisplay(errorMessage);
             return;
+        }
+
+        private void sideButtonsClicked(object sender, EventArgs e)
+        {
+            string buttonText = ((Button)sender).Text;
+            string errorMessage = "";
+
+            if (buttonText == "")
+            {
+                return;
+            }
+            if(state == State.LoggedIn)
+            {
+                if(buttonText == "B")
+                {
+                    state = State.CheckingBalance;
+                }
+                else
+                {
+                    state = State.WithdrawingCash;
+                }
+            }else if(state == State.WithdrawingCash)
+            {
+                int amountToWithdraw = int.Parse(buttonText);
+                bool transactionValid = currentAccount.decrementBalance(amountToWithdraw);
+                if (!transactionValid)
+                {
+                    errorMessage = "not enough funds for transaction";
+                }
+                else
+                {
+                    state = State.LoggedIn;
+                    errorMessage= "£" + buttonText + " withdrawn";
+                }
+            }
+            UpdateDisplay(errorMessage);
         }
     }
 }

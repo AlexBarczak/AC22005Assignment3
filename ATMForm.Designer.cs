@@ -55,11 +55,13 @@
             // 
             // btn_right1
             // 
+            this.btn_right1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_right1.Location = new System.Drawing.Point(485, 40);
             this.btn_right1.Name = "btn_right1";
             this.btn_right1.Size = new System.Drawing.Size(60, 40);
             this.btn_right1.TabIndex = 0;
             this.btn_right1.UseVisualStyleBackColor = true;
+            this.btn_right1.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_Enter
             // 
@@ -209,59 +211,73 @@
             // 
             // btn_left4
             // 
+            this.btn_left4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_left4.Location = new System.Drawing.Point(40, 220);
             this.btn_left4.Name = "btn_left4";
             this.btn_left4.Size = new System.Drawing.Size(60, 40);
             this.btn_left4.TabIndex = 13;
             this.btn_left4.UseVisualStyleBackColor = true;
+            this.btn_left4.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_left3
             // 
+            this.btn_left3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_left3.Location = new System.Drawing.Point(40, 160);
             this.btn_left3.Name = "btn_left3";
             this.btn_left3.Size = new System.Drawing.Size(60, 40);
             this.btn_left3.TabIndex = 14;
             this.btn_left3.UseVisualStyleBackColor = true;
+            this.btn_left3.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_left2
             // 
+            this.btn_left2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_left2.Location = new System.Drawing.Point(40, 100);
             this.btn_left2.Name = "btn_left2";
             this.btn_left2.Size = new System.Drawing.Size(60, 40);
             this.btn_left2.TabIndex = 15;
             this.btn_left2.UseVisualStyleBackColor = true;
+            this.btn_left2.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_left1
             // 
+            this.btn_left1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_left1.Location = new System.Drawing.Point(40, 40);
             this.btn_left1.Name = "btn_left1";
             this.btn_left1.Size = new System.Drawing.Size(60, 40);
             this.btn_left1.TabIndex = 16;
             this.btn_left1.UseVisualStyleBackColor = true;
+            this.btn_left1.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_right4
             // 
+            this.btn_right4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_right4.Location = new System.Drawing.Point(485, 220);
             this.btn_right4.Name = "btn_right4";
             this.btn_right4.Size = new System.Drawing.Size(60, 40);
             this.btn_right4.TabIndex = 17;
             this.btn_right4.UseVisualStyleBackColor = true;
+            this.btn_right4.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_right3
             // 
+            this.btn_right3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_right3.Location = new System.Drawing.Point(485, 160);
             this.btn_right3.Name = "btn_right3";
             this.btn_right3.Size = new System.Drawing.Size(60, 40);
             this.btn_right3.TabIndex = 18;
             this.btn_right3.UseVisualStyleBackColor = true;
+            this.btn_right3.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // btn_right2
             // 
+            this.btn_right2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_right2.Location = new System.Drawing.Point(485, 100);
             this.btn_right2.Name = "btn_right2";
             this.btn_right2.Size = new System.Drawing.Size(60, 40);
             this.btn_right2.TabIndex = 19;
             this.btn_right2.UseVisualStyleBackColor = true;
+            this.btn_right2.Click += new System.EventHandler(this.sideButtonsClicked);
             // 
             // panel2
             // 
