@@ -57,6 +57,7 @@ namespace AC22005Assignment3
         {
             foreach (ATMForm ATM in ATMList)
             {
+                if (!ATM.Created) continue;
                 ATM.BeginInvoke(new CloseDelegate(ATM.Close));
             }
         }
