@@ -72,6 +72,7 @@
             this.btn_Enter.TabIndex = 1;
             this.btn_Enter.Text = "Enter";
             this.btn_Enter.UseVisualStyleBackColor = false;
+            this.btn_Enter.Click += new System.EventHandler(this.btn_Enter_Click);
             // 
             // btn_Cancel
             // 
@@ -84,6 +85,7 @@
             this.btn_Cancel.TabIndex = 2;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = false;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // button4
             // 

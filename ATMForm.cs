@@ -21,6 +21,8 @@ namespace AC22005Assignment3
             CheckingBalance
         }
 
+        private Account currentAccount;
+
         State state = State.EnteringAccountNumber;
         string currentUserInput = "";
 
@@ -40,7 +42,7 @@ namespace AC22005Assignment3
             Application.Run(this);
         }
 
-        public void UpdateDisplay()
+        public void UpdateDisplay(string errorMessage = "")
         {
             string[] lines = new string[8];
 
@@ -51,14 +53,20 @@ namespace AC22005Assignment3
                     lines[4] = currentUserInput;
                     break;
                 case State.EnteringPin:
+                    lines[3] = "Enter Your pin number:";
+                    lines[4] = currentUserInput;
                     break;
                 case State.LoggedIn:
+                    lines[3] = "welcome, user";
+                    lines[4] = "select an action";
                     break;
                 case State.WithdrawingCash:
                     break;
                 case State.CheckingBalance:
                     break;
             }
+
+            lines[7] = errorMessage;
 
             displayBox.Lines = lines;
         }
@@ -82,6 +90,76 @@ namespace AC22005Assignment3
 
             currentUserInput += input;
             UpdateDisplay();
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            if (currentUserInput != "")
+            {
+                currentUserInput = "";
+                UpdateDisplay();
+                return;
+            }
+
+            switch (state)
+            {
+                case State.EnteringAccountNumber:
+                    break;
+                case State.EnteringPin:
+                    state = State.EnteringAccountNumber;
+                    break;
+                case State.LoggedIn:
+                    state = State.EnteringAccountNumber;
+                    break;
+                case State.WithdrawingCash:
+                    state = State.LoggedIn;
+                    break;
+                case State.CheckingBalance:
+                    state = State.LoggedIn;
+                    break;
+            }
+
+            UpdateDisplay();
+            return;
+        }
+
+        private void btn_Enter_Click(object sender, EventArgs e)
+        {
+
+            string errorMessage = "";
+
+            switch (state)
+            {
+                case State.EnteringAccountNumber:
+
+                    currentAccount = mainForm.findAccount(int.Parse(currentUserInput));
+                    if (currentAccount == null)
+                    { 
+                        errorMessage = "invalid account number";
+                    }
+                    else
+                    {
+                        state = State.EnteringPin;
+                    }
+                    break;
+
+                case State.EnteringPin:
+
+                    if (currentAccount.checkPin(int.Parse(currentUserInput)))
+                    {
+                        state = State.LoggedIn;
+                    }
+                    else
+                    {
+                        errorMessage = "incorrect pin";
+                    }
+
+                    break;
+            }
+
+            currentUserInput = "";
+            UpdateDisplay(errorMessage);
+            return;
         }
     }
 }

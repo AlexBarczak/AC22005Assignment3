@@ -68,5 +68,18 @@ namespace AC22005Assignment3
                 ATM.BeginInvoke(new CloseDelegate(ATM.Close));
             }
         }
+
+        public Account findAccount(int AccountNumber)
+        {
+            for (int i = 0; i < this.ac.Length; i++)
+            {
+                if (ac[i].getAccountNum() == AccountNumber)
+                {
+                    return ac[i];
+                }
+            }
+
+            return null;
+        }
     }
 }

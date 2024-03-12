@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AC22005Assignment3
 {
 
-    internal class Account
+    public class Account
     {
         //the attributes for the account
         private int balance;
