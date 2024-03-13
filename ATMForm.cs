@@ -49,10 +49,15 @@ namespace AC22005Assignment3
 
             this.mainForm = mainForm;
             mainForm.ATMList.AddLast(this);
-            mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), Environment.CurrentManagedThreadId.ToString());
+            sendMessageToComputer(Environment.CurrentManagedThreadId.ToString());
             UpdateDisplay();
 
             Application.Run(this);
+        }
+
+        private void sendMessageToComputer(string message)
+        {
+            mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), message);
         }
 
         public void UpdateDisplay(string errorMessage = "")
