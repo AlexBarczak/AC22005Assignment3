@@ -30,6 +30,7 @@
         {
             this.btn_CreateATM = new System.Windows.Forms.Button();
             this.OutputWindow = new System.Windows.Forms.Label();
+            this.btn_raceConditionToggle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_CreateATM
@@ -55,11 +56,22 @@
             this.OutputWindow.Size = new System.Drawing.Size(400, 300);
             this.OutputWindow.TabIndex = 1;
             // 
+            // btn_raceConditionToggle
+            // 
+            this.btn_raceConditionToggle.Location = new System.Drawing.Point(361, 400);
+            this.btn_raceConditionToggle.Name = "btn_raceConditionToggle";
+            this.btn_raceConditionToggle.Size = new System.Drawing.Size(139, 52);
+            this.btn_raceConditionToggle.TabIndex = 2;
+            this.btn_raceConditionToggle.Text = "enable race condition fix";
+            this.btn_raceConditionToggle.UseVisualStyleBackColor = true;
+            this.btn_raceConditionToggle.Click += new System.EventHandler(this.btn_raceConditionToggle_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.btn_raceConditionToggle);
             this.Controls.Add(this.OutputWindow);
             this.Controls.Add(this.btn_CreateATM);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -74,5 +86,6 @@
 
         private Button btn_CreateATM;
         private Label OutputWindow;
+        private Button btn_raceConditionToggle;
     }
 }

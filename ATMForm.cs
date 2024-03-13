@@ -51,6 +51,7 @@ namespace AC22005Assignment3
             denominationButtons[7] = btn_right4;
 
             this.mainForm = mainForm;
+            this.Text = "ATM " + Environment.CurrentManagedThreadId.ToString();
             mainForm.ATMList.AddLast(this);
             sendMessageToComputer(Environment.CurrentManagedThreadId.ToString());
             UpdateDisplay();
@@ -60,6 +61,7 @@ namespace AC22005Assignment3
 
         private void sendMessageToComputer(string message)
         {
+            message = "ATM " + Environment.CurrentManagedThreadId + ": " + message;
             mainForm.BeginInvoke(new PrintDelegate(mainForm.printToOutputWindow), message);
         }
 
@@ -237,15 +239,45 @@ namespace AC22005Assignment3
             }else if(state == State.WithdrawingCash)
             {
                 int amountToWithdraw = int.Parse(buttonText);
-                bool transactionValid = currentAccount.decrementBalance(amountToWithdraw);
+                Account accountCopy = new Account(currentAccount);
+                bool transactionValid = accountCopy.decrementBalance(amountToWithdraw);
+                sendMessageToComputer(currentAccount.getAccountNum().ToString() + " is trying to withdraw " + amountToWithdraw.ToString());
+                
+                
                 if (!transactionValid)
                 {
+                    sendMessageToComputer(currentAccount.getAccountNum().ToString() + " failed to withdraw " + amountToWithdraw.ToString());
                     errorMessage = "not enough funds for transaction";
                 }
                 else
                 {
+
+                    if(mainForm.raceConditionIsFixed())
+                    {
+                        if (!currentAccount.tryToLock(Environment.CurrentManagedThreadId))
+                        {
+                            UpdateDisplay("account is being used elsewhere");
+                            return;
+                        };
+
+                        sendMessageToComputer("account " + currentAccount.getAccountNum().ToString() + " is now being access locked");
+                    }
+
+                    UpdateDisplay("processing choice...");
+                    this.Refresh();
+                    Thread.Sleep(10000);
+
+                    sendMessageToComputer(currentAccount.getAccountNum().ToString() + " has withdrawn " + amountToWithdraw.ToString());
                     state = State.LoggedIn;
+                    currentAccount.setBalance(accountCopy.getBalance());
+                    currentAccount.tryToUnlock(Environment.CurrentManagedThreadId);
                     errorMessage= "£" + buttonText + " withdrawn";
+
+                    if (mainForm.raceConditionIsFixed())
+                    {
+                        currentAccount.tryToUnlock(Environment.CurrentManagedThreadId);
+                        sendMessageToComputer("access to account " + currentAccount.getAccountNum().ToString() + " is being unlocked");
+                    }
                 }
             }
             UpdateDisplay(errorMessage);
