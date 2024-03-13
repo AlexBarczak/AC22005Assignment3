@@ -35,9 +35,12 @@ namespace AC22005Assignment3
         private Main mainForm;
 
         public ATMForm(Main mainForm)
+        /**
+        The buttons down either side of the atm display
+        **/
         {
             InitializeComponent();
-
+            
             denominationButtons[0] = btn_left1;
             denominationButtons[1] = btn_left2;
             denominationButtons[2] = btn_left3;
@@ -64,22 +67,22 @@ namespace AC22005Assignment3
         {
             string[] lines = new string[8];
 
-            foreach (Button button in denominationButtons)
+            foreach (Button button in denominationButtons) //Setting each button text to blank string
             {
                 button.Text = "";
             }
 
-            switch (state)
+            switch (state) //Depending what the state of the ATM is, sets the respective button and prompt.
             {
-                case State.EnteringAccountNumber:
+                case State.EnteringAccountNumber: //Entering account number
                     lines[2] = "Enter Your account number:";
                     lines[3] = currentUserInput;
                     break;
-                case State.EnteringPin:
+                case State.EnteringPin: //entering card pin number
                     lines[2] = "Enter Your pin number:";
                     lines[3] = currentUserInput;
                     break;
-                case State.LoggedIn:
+                case State.LoggedIn: //main home screen showing all availiable actions
                     lines[2] = "welcome, user";
                     lines[3] = "select an action:";
                     lines[4] = "B to check balance";
@@ -87,14 +90,14 @@ namespace AC22005Assignment3
                     denominationButtons[0].Text = "B";
                     denominationButtons[1].Text = "W";
                     break;
-                case State.WithdrawingCash:
+                case State.WithdrawingCash: //using the amounts defined at the top of the program, sets the ammounts to withdraw selectable by the user. 
                     for(int i = 0; i < denominationButtons.Length; i++){
                         denominationButtons[i].Text = withdrawAmount[i];
                     }
                     lines[2] = "please select the amount";
                     lines[3] = "to withdraw";
                     break;
-                case State.CheckingBalance:
+                case State.CheckingBalance: //displays ballance
                     lines[2] = "Your current balance is: ";
                     lines[3] = currentAccount.getBalance().ToString();
                     break;
@@ -106,6 +109,10 @@ namespace AC22005Assignment3
         }
 
         private void NumpadClicked(object sender, EventArgs e)
+        /**
+        depending on state, will either set entry length of 6 ot 4 for account number and pin respectivly.
+        will exit if input length is greater than allowed length.
+        **/
         {
             string input = ((Button)sender).Text;
             int maxInputLength = 0;
@@ -127,6 +134,9 @@ namespace AC22005Assignment3
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
+        /**
+        If on or before logged in page, then exits back to enter account number. Otherwise will go back to the logged in page.
+        **/
         {
             if (currentUserInput != "")
             {
@@ -169,7 +179,7 @@ namespace AC22005Assignment3
             switch (state)
             {
                 case State.EnteringAccountNumber:
-
+                    //entering the account number, if it matches an account then it will ask for pin. Otherwise, displays error message.
                     currentAccount = mainForm.findAccount(int.Parse(currentUserInput));
                     if (currentAccount == null)
                     { 
@@ -182,7 +192,7 @@ namespace AC22005Assignment3
                     break;
 
                 case State.EnteringPin:
-
+                    // entering pin number, if correct then goes to logged in page. Otherwise, displays error message.
                     if (currentAccount.checkPin(int.Parse(currentUserInput)))
                     {
                         state = State.LoggedIn;
@@ -201,6 +211,11 @@ namespace AC22005Assignment3
         }
 
         private void sideButtonsClicked(object sender, EventArgs e)
+        /**
+        The process of clicking a side button. When the program is on the logged in page, if the button is labelled with "B" then the program will display the balance of that account.
+        Otherwise the program will take the user to the withdraw cash screen.
+        When the program is on the withdraw cash then each button will ask to withdraw it's designated amount. 
+        **/
         {
             string buttonText = ((Button)sender).Text;
             string errorMessage = "";
