@@ -13,6 +13,29 @@ namespace AC22005Assignment3
         private int balance;
         private int pin;
         private int accountNum;
+        private int accessSemaphore = 0;
+
+        public bool tryToLock(int lockerID)
+        {
+            if (accessSemaphore == 0)
+            {
+                // true means has managed to lock account
+                accessSemaphore = lockerID;
+                return true;
+            }
+            // false means could not access account
+            return false;
+        }
+
+        public bool tryToUnlock(int lockerID)
+        {
+            if(lockerID == accessSemaphore)
+            {
+                accessSemaphore = 0;
+                return true;
+            }
+            return false;
+        }
 
         // a constructor that takes initial values for each of the attributes (balance, pin, accountNumber)
         public Account(int balance, int pin, int accountNum)
@@ -20,6 +43,13 @@ namespace AC22005Assignment3
             this.balance = balance;
             this.pin = pin;
             this.accountNum = accountNum;
+        }
+
+        public Account(Account account)
+        {
+            this.balance = account.balance;
+            this.pin = account.pin;
+            this.accountNum = account.accountNum;
         }
 
         //getter and setter functions for balance

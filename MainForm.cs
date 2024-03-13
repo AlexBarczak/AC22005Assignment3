@@ -9,10 +9,16 @@ namespace AC22005Assignment3
         public LinkedList<ATMForm> ATMList = new LinkedList<ATMForm>();
 
         private Account[] ac = new Account[3];
+        private bool raceConditionFixed = false;
 
         private Queue<string> OutputWindowBuffer = new Queue<string>();
         const int OutputWindowCharWidth = 42;
         const int OutputWindowCharHeight = 14;
+
+        public bool raceConditionIsFixed()
+        {
+            return raceConditionFixed;
+        }
 
         private void UpdateOutputWindow()
         {
@@ -69,7 +75,7 @@ namespace AC22005Assignment3
             }
         }
 
-        public Account findAccount(int AccountNumber)
+        public Account? findAccount(int AccountNumber)
         {
             for (int i = 0; i < this.ac.Length; i++)
             {
@@ -80,6 +86,22 @@ namespace AC22005Assignment3
             }
 
             return null;
+        }
+
+        private void btn_raceConditionToggle_Click(object sender, EventArgs e)
+        {
+            if (raceConditionFixed)
+            {
+                raceConditionFixed = false;
+                printToOutputWindow("race condition fix disabled");
+                btn_raceConditionToggle.Text = "enable race condition fix";
+            }
+            else
+            {
+                raceConditionFixed = true;
+                printToOutputWindow("race condition fix enabled");
+                btn_raceConditionToggle.Text = "disable race condition fix";
+            }
         }
     }
 }
